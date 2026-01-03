@@ -22,5 +22,5 @@ install: build
 clean:
 	rm -rf build
 	rm -rf *.pkg.tar.zst
-	rm -rf src pkg
+	rm -rf pkg
 

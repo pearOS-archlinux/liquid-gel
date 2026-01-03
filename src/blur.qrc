@@ -1,0 +1,12 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/effects/forceblur/">
+  <file>shaders/downsample.frag</file>
+  <file>shaders/downsample_core.frag</file>
+  <file>shaders/texture.frag</file>
+  <file>shaders/texture_core.frag</file>
+  <file>shaders/upsample.frag</file>
+  <file>shaders/upsample_core.frag</file>
+  <file>shaders/vertex.vert</file>
+  <file>shaders/vertex_core.vert</file>
+</qresource>
+</RCC>

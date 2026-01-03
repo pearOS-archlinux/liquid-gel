@@ -1,0 +1,24 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "KWin development team"
+            },
+            {
+                "Name": "taj_ny"
+            },
+            {
+                "Name": "DaddelZeit"
+            },
+            {
+                "Name": "iGerman00"
+            }
+        ],
+        "Category": "Appearance",
+        "Description": "Fork of the KWin Blur effect for KDE Plasma 6 with force blur and more",
+        "EnabledByDefault": false,
+        "License": "GPL",
+        "Name": "Better Blur"
+    },
+    "X-KDE-ConfigModule": "kwin_better_blur_config"
+}

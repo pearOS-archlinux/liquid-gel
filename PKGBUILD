@@ -33,11 +33,11 @@ makedepends=(
     'kwin'
     'git'
 )
-source=("git+https://github.com/pearOS-archlinux/liquid-gel.git")
+source=("git+https://github.com/taj-ny/kwin-effects-forceblur.git#tag=v${pkgver}")
 sha256sums=('SKIP')
 
 build() {
-    cd "${srcdir}/liquid-gel"
+    cd "${srcdir}/kwin-effects-forceblur"
     rm -rf build
     mkdir build
     cd build
@@ -46,7 +46,7 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/liquid-gel/build"
+    cd "${srcdir}/kwin-effects-forceblur/build"
     make DESTDIR="${pkgdir}" install
 }
 
