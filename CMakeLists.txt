@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(kwin_better_blur)
-set(PROJECT_VERSION "1.5.0")
+project(pearos_liquidgel)
+set(PROJECT_VERSION "26.1")
 set(PROJECT_VERSION_MAJOR 0)
 
 set(KF_MIN_VERSION "5.240.0")
@@ -12,11 +12,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CPACK_PACKAGE_NAME "kwin-better-blur")
+set(CPACK_PACKAGE_NAME "pearos-liquidgel")
 set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
-set(CPACK_PACKAGE_FILE_NAME "kwin-better-blur")
+set(CPACK_PACKAGE_FILE_NAME "pearos-liquidgel")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fork of the KWin Blur effect for KDE Plasma 6 with additional features (including force blur) and bug fixes")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fork of the KWin Blur effect for pearOS with additional features (including force blur) and bug fixes")
 include(CPack)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -27,8 +27,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-option(BETTERBLUR_WAYLAND "Whether to build Better Blur for Wayland if present." ON)
-option(BETTERBLUR_X11 "Whether to build Better Blur for X11 if present." ON)
+option(BETTERBLUR_WAYLAND "Whether to build pearOS Liquid Gel for Wayland if present." ON)
+option(BETTERBLUR_X11 "Whether to build pearOS Liquid Gel for X11 if present." ON)
 
 include(FeatureSummary)
 include(KDEInstallDirs)
@@ -95,7 +95,7 @@ if(BETTERBLUR_X11)
 endif()
 
 if(${KWin_VERSION} VERSION_LESS 6.4)
-    message(FATAL_ERROR "Better Blur does not support your Plasma version (${KWin_VERSION}). See the README for more information.")
+    message(FATAL_ERROR "pearOS Liquid Gel does not support your Plasma version (${KWin_VERSION}). See the README for more information.")
 endif()
 
 find_package(KDecoration3 REQUIRED)

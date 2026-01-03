@@ -42,7 +42,7 @@
 
 #include <utility>
 
-Q_LOGGING_CATEGORY(KWIN_BLUR, "kwin_better_blur", QtWarningMsg)
+Q_LOGGING_CATEGORY(KWIN_BLUR, "pearos_liquidgel", QtWarningMsg)
 
 static void ensureResources()
 {

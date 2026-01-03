@@ -15,10 +15,10 @@
             }
         ],
         "Category": "Appearance",
-        "Description": "Fork of the KWin Blur effect for KDE Plasma 6 with force blur and more",
+        "Description": "Fork of the KWin Blur effect for pearOS with force blur and more",
         "EnabledByDefault": false,
         "License": "GPL",
-        "Name": "Better Blur"
+        "Name": "pearOS Liquid Gel"
     },
-    "X-KDE-ConfigModule": "kwin_better_blur_config"
+    "X-KDE-ConfigModule": "pearos_liquidgel_config"
 }

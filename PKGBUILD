@@ -1,8 +1,8 @@
 # Maintainer: Your Name <your.email@example.com>
-pkgname=kwin-effects-forceblur
-pkgver=1.5.0
+pkgname=pearos-liquidgel
+pkgver=26.1
 pkgrel=1
-pkgdesc="Fork of the KWin Blur effect for KDE Plasma 6 with additional features (including force blur) and bug fixes"
+pkgdesc="Fork of the KWin Blur effect for pearOS with additional features (including force blur) and bug fixes"
 arch=('x86_64')
 url="https://github.com/pearOS-archlinux/liquid-gel"
 license=('GPL3')
@@ -33,11 +33,11 @@ makedepends=(
     'kwin'
     'git'
 )
-source=("git+https://github.com/taj-ny/kwin-effects-forceblur.git#tag=v${pkgver}")
+source=("git+https://github.com/pearOS-archlinux/liquid-gel.git")
 sha256sums=('SKIP')
 
 build() {
-    cd "${srcdir}/kwin-effects-forceblur"
+    cd "${srcdir}/liquid-gel"
     rm -rf build
     mkdir build
     cd build
@@ -46,7 +46,7 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/kwin-effects-forceblur/build"
+    cd "${srcdir}/liquid-gel/build"
     make DESTDIR="${pkgdir}" install
 }
 
