@@ -34,7 +34,7 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
     if (about.open(QIODevice::ReadOnly)) {
         const auto html = about.readAll()
             .replace("${version}", ABOUT_VERSION_STRING)
-            .replace("${repo}", "https://github.com/taj-ny/kwin-effects-forceblur");
+            .replace("${repo}", "https://github.com/pearOS-archlinux/liquid-gel");
         ui.aboutText->setHtml(html);
     }
 

@@ -23,4 +23,6 @@ clean:
 	rm -rf build
 	rm -rf *.pkg.tar.zst
 	rm -rf pkg
+	rm -rf liquid-gel
+	rm -rf src/liquid-gel
 
