@@ -77,6 +77,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make -j$(nproc)
 sudo make install
 ```
+For the effect to appear in Desktop Effects for **all users**, install system-wide with `sudo make install` and prefix `/usr`. A per-user install (e.g. `~/.local`) will only show the effect for that user.
 
 
 # Usage

@@ -1,6 +1,6 @@
 # Maintainer: Your Name <your.email@example.com>
 pkgname=pearos-liquidgel
-pkgver=26.1
+pkgver=26.2
 pkgrel=1
 pkgdesc="Fork of the KWin Blur effect for pearOS with additional features (including force blur) and bug fixes"
 arch=('x86_64')
@@ -48,5 +48,20 @@ build() {
 package() {
     cd "${srcdir}/liquid-gel/build"
     make DESTDIR="${pkgdir}" install
+
+    # Verificare: fișierele obligatorii pentru Desktop Effects
+    local plugindir="${pkgdir}/usr/lib/qt6/plugins"
+    for f in \
+        "${plugindir}/kwin/effects/plugins/forceblur.so" \
+        "${plugindir}/kwin/effects/plugins/metadata.json" \
+        "${plugindir}/kwin/effects/configs/pearos_liquidgel_config.so" \
+        "${plugindir}/kwin-x11/effects/plugins/forceblur_x11.so" \
+        "${plugindir}/kwin-x11/effects/plugins/metadata.json" \
+        "${plugindir}/kwin-x11/effects/configs/pearos_liquidgel_config.so"; do
+        if [[ ! -f "$f" ]]; then
+            echo "EROARE: lipsește din pachet: $f"
+            return 1
+        fi
+    done
 }
 
