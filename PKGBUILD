@@ -1,6 +1,6 @@
-# Maintainer: Your Name <your.email@example.com>
+# Maintainer: Alexandru Balan <alex@pear-software.com>
 pkgname=pearos-liquidgel
-pkgver=26.2
+pkgver=26.5
 pkgrel=1
 pkgdesc="Fork of the KWin Blur effect for pearOS with additional features (including force blur) and bug fixes"
 arch=('x86_64')
