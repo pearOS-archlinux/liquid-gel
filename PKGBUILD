@@ -49,19 +49,28 @@ package() {
     cd "${srcdir}/liquid-gel/build"
     make DESTDIR="${pkgdir}" install
 
-    # Verificare: fișierele obligatorii pentru Desktop Effects
+    # Verificare: fișierele obligatorii pentru Desktop Effects (Wayland)
     local plugindir="${pkgdir}/usr/lib/qt6/plugins"
     for f in \
         "${plugindir}/kwin/effects/plugins/forceblur.so" \
         "${plugindir}/kwin/effects/plugins/metadata.json" \
-        "${plugindir}/kwin/effects/configs/pearos_liquidgel_config.so" \
-        "${plugindir}/kwin-x11/effects/plugins/forceblur_x11.so" \
-        "${plugindir}/kwin-x11/effects/plugins/metadata.json" \
-        "${plugindir}/kwin-x11/effects/configs/pearos_liquidgel_config.so"; do
+        "${plugindir}/kwin/effects/configs/pearos_liquidgel_config.so"; do
         if [[ ! -f "$f" ]]; then
             echo "EROARE: lipsește din pachet: $f"
             return 1
         fi
     done
+
+    # Verificare opțională pentru X11 (instalat doar dacă kwin-x11 este disponibil)
+    if [[ -d "${plugindir}/kwin-x11" ]]; then
+        for f in \
+            "${plugindir}/kwin-x11/effects/plugins/forceblur_x11.so" \
+            "${plugindir}/kwin-x11/effects/plugins/metadata.json" \
+            "${plugindir}/kwin-x11/effects/configs/pearos_liquidgel_config.so"; do
+            if [[ ! -f "$f" ]]; then
+                echo "AVERTISMENT: lipsește fișierul X11 opțional: $f"
+            fi
+        done
+    fi
 }
 
