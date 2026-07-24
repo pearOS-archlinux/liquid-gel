@@ -47,12 +47,13 @@ void BlurSettings::read()
     forceBlur.blurMenus = BlurConfig::blurMenus();
     forceBlur.blurDocks = BlurConfig::blurDocks();
 
-    roundedCorners.windowTopRadius = BlurConfig::topCornerRadius();
-    roundedCorners.windowBottomRadius = BlurConfig::bottomCornerRadius();
-    roundedCorners.menuRadius = BlurConfig::menuCornerRadius();
-    roundedCorners.dockRadius = BlurConfig::dockCornerRadius();
-    roundedCorners.antialiasing = BlurConfig::roundedCornersAntialiasing();
-    roundedCorners.roundMaximized = BlurConfig::roundCornersOfMaximizedWindows();
+    // Rounded corners are hardcoded and not user-configurable.
+    roundedCorners.windowTopRadius = 26.0;
+    roundedCorners.windowBottomRadius = 26.0;
+    roundedCorners.menuRadius = 10.0;
+    roundedCorners.dockRadius = 50.0;
+    roundedCorners.antialiasing = 1.0;
+    roundedCorners.roundMaximized = true;
 
     staticBlur.enable = BlurConfig::fakeBlur();
     staticBlur.disableWhenWindowBehind = BlurConfig::fakeBlurDisableWhenWindowBehind();

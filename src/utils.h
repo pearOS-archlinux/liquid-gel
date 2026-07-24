@@ -8,6 +8,11 @@ inline bool isMenu(const EffectWindow *w)
     return w->isMenu() || w->isDropdownMenu() || w->isPopupMenu() || w->isPopupWindow();
 }
 
+inline QRectF scaledRect(const QRectF &rect, qreal scale)
+{
+    return QRectF(rect.topLeft() * scale, rect.size() * scale);
+}
+
 inline bool isDockFloating(const EffectWindow *dock, const QRegion blurRegion)
 {
     // If the pixel at (0, height / 2) for horizontal panels and (width / 2, 0) for vertical panels doesn't belong to

@@ -6,7 +6,7 @@
     <kcfgfile arg="true"/>
     <group name="Effect-blurplus">
         <entry name="BlurStrength" type="Int">
-            <default>15</default>
+            <default>20</default>
         </entry>
         <entry name="NoiseStrength" type="Int">
             <default>5</default>
@@ -27,24 +27,6 @@ class3</default>
         </entry>
         <entry name="TransparentBlur" type="Bool">
             <default>true</default>
-        </entry>
-        <entry name="TopCornerRadius" type="Double">
-            <default>0.0</default>
-        </entry>
-        <entry name="BottomCornerRadius" type="Double">
-            <default>0.0</default>
-        </entry>
-        <entry name="MenuCornerRadius" type="Double">
-            <default>0.0</default>
-        </entry>
-        <entry name="DockCornerRadius" type="Double">
-            <default>0.0</default>
-        </entry>
-        <entry name="RoundedCornersAntialiasing" type="Double">
-            <default>1.0</default>
-        </entry>
-        <entry name="RoundCornersOfMaximizedWindows" type="Bool">
-            <default>false</default>
         </entry>
         <entry name="BlurMenus" type="Bool">
             <default>false</default>
