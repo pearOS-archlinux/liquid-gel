@@ -30,6 +30,9 @@ if(BETTERBLUR_WAYLAND)
         KF6::ConfigGui
         KWin::kwin
     )
+    if(KWIN_DRAWWINDOW_RETURNS_BOOL)
+        target_compile_definitions(forceblur PRIVATE KWIN_DRAWWINDOW_RETURNS_BOOL)
+    endif()
     install(TARGETS forceblur DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/plugins)
     install(FILES metadata.json DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/plugins)
 endif()

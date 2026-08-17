@@ -562,7 +562,11 @@ bool BlurEffect::shouldForceBlur(const EffectWindow *w) const
         || (!matches && m_settings.forceBlur.windowClassMatchingMode == WindowClassMatchingMode::Blacklist);
 }
 
+#ifdef KWIN_DRAWWINDOW_RETURNS_BOOL
+bool BlurEffect::drawWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &region, WindowPaintData &data)
+#else
 void BlurEffect::drawWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &region, WindowPaintData &data)
+#endif
 {
     auto it = m_windows.find(w);
     if (it != m_windows.end()) {
@@ -574,7 +578,11 @@ void BlurEffect::drawWindow(const RenderTarget &renderTarget, const RenderViewpo
     }
 
     // Draw the window over the blurred area
+#ifdef KWIN_DRAWWINDOW_RETURNS_BOOL
+    return effects->drawWindow(renderTarget, viewport, w, mask, region, data);
+#else
     effects->drawWindow(renderTarget, viewport, w, mask, region, data);
+#endif
 }
 
 GLTexture *BlurEffect::ensureStaticBlurTexture(const LogicalOutput *output, const RenderTarget &renderTarget)
@@ -657,7 +665,7 @@ void BlurEffect::blur(BlurRenderData &renderInfo, const RenderTarget &renderTarg
     }
 
     const Rect backgroundRect = blurShape.boundingRect();
-    const QRect deviceBackgroundRect = snapToPixelGrid(scaledRect(QRectF(static_cast<QRect>(backgroundRect)), viewport.scale()));
+    const QRect deviceBackgroundRect = snapToPixels(RectF(scaledRect(QRectF(static_cast<QRect>(backgroundRect)), viewport.scale())), 1.0).toRect();
     const auto opacity = w && m_settings.general.windowOpacityAffectsBlur
         ? w->opacity() * data.opacity()
         : data.opacity();
@@ -666,10 +674,10 @@ void BlurEffect::blur(BlurRenderData &renderInfo, const RenderTarget &renderTarg
     effectiveShape.reserve(blurShape.rects().size());
     if (region != Region::infinite()) {
         for (const Rect &clipRect : region.rects()) {
-            const QRectF deviceClipRect = snapToPixelGridF(scaledRect(QRectF(static_cast<QRect>(clipRect)), viewport.scale()))
+            const QRectF deviceClipRect = snapToPixels(RectF(scaledRect(QRectF(static_cast<QRect>(clipRect)), viewport.scale())), 1.0)
                     .translated(-deviceBackgroundRect.topLeft());
             for (const Rect &shapeRect : blurShape.rects()) {
-                const QRectF deviceShapeRect = snapToPixelGridF(scaledRect(QRectF(static_cast<QRect>(shapeRect.translated(-backgroundRect.topLeft()))), viewport.scale()));
+                const QRectF deviceShapeRect = snapToPixels(RectF(scaledRect(QRectF(static_cast<QRect>(shapeRect.translated(-backgroundRect.topLeft()))), viewport.scale())), 1.0);
                 if (const QRectF intersected = deviceClipRect.intersected(deviceShapeRect); !intersected.isEmpty()) {
                     effectiveShape.append(intersected);
                 }
@@ -677,7 +685,7 @@ void BlurEffect::blur(BlurRenderData &renderInfo, const RenderTarget &renderTarg
         }
     } else {
         for (const Rect &rect : blurShape.rects()) {
-            effectiveShape.append(snapToPixelGridF(scaledRect(QRectF(static_cast<QRect>(rect.translated(-backgroundRect.topLeft()))), viewport.scale())));
+            effectiveShape.append(snapToPixels(RectF(scaledRect(QRectF(static_cast<QRect>(rect.translated(-backgroundRect.topLeft()))), viewport.scale())), 1.0));
         }
     }
     if (effectiveShape.isEmpty()) {
@@ -766,7 +774,7 @@ void BlurEffect::blur(BlurRenderData &renderInfo, const RenderTarget &renderTarg
     if (!staticBlurTexture) {
         const Region dirtyRegion = region & backgroundRect;
         for (const Rect &dirtyRect : dirtyRegion.rects()) {
-            const auto destination = snapToPixelGrid(scaledRect(QRectF(static_cast<QRect>(dirtyRect)), viewport.scale())).translated(-deviceBackgroundRect.topLeft());
+            const auto destination = Rect(snapToPixels(RectF(scaledRect(QRectF(static_cast<QRect>(dirtyRect)), viewport.scale())), 1.0).toRect()).translated(-deviceBackgroundRect.topLeft());
             renderInfo.framebuffers[0]->blitFromRenderTarget(renderTarget, viewport, dirtyRect, destination);
         }
     }
@@ -1038,7 +1046,7 @@ void BlurEffect::blur(GLTexture *texture)
 
 GLTexture *BlurEffect::wallpaper(EffectWindow *desktop, const qreal &scale, const GLenum &textureFormat)
 {
-    const auto geometry = snapToPixelGrid(scaledRect(desktop->rect(), scale));
+    const auto geometry = snapToPixels(RectF(scaledRect(desktop->rect(), scale)), 1.0).toRect();
 
     auto texture = GLTexture::allocate(textureFormat, geometry.size());
     texture->setFilter(GL_LINEAR);

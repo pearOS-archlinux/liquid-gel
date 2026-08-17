@@ -17,6 +17,8 @@
         "Category": "Appearance",
         "Description": "Fork of the KWin Blur effect for pearOS with force blur and more",
         "EnabledByDefault": false,
+        "Icon": "preferences-system-windows-effect-blur",
+        "Id": "forceblur",
         "License": "GPL",
         "Name": "pearOS Liquid Gel"
     },

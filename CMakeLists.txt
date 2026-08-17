@@ -98,6 +98,24 @@ if(${KWin_VERSION} VERSION_LESS 6.4)
     message(FATAL_ERROR "pearOS Liquid Gel does not support your Plasma version (${KWin_VERSION}). See the README for more information.")
 endif()
 
+# Newer KWin changed Effect::drawWindow() to return bool (whether the window
+# was actually painted) instead of void. Probe for it so `override` stays
+# correct on both old and new KWin, same approach as pearos-magiclamp.
+if(BETTERBLUR_WAYLAND)
+    file(WRITE "${CMAKE_BINARY_DIR}/kwin_drawwindow_probe.cc"
+"#include <effect/effect.h>
+struct Probe : KWin::Effect {
+    bool drawWindow(const KWin::RenderTarget&, const KWin::RenderViewport&, KWin::EffectWindow*, int, const KWin::Region&, KWin::WindowPaintData&) override { return true; }
+};
+int main() { return 0; }
+")
+    try_compile(KWIN_DRAWWINDOW_RETURNS_BOOL
+        SOURCES "${CMAKE_BINARY_DIR}/kwin_drawwindow_probe.cc"
+        LINK_LIBRARIES KWin::kwin Qt6::Core Qt6::Gui KF6::CoreAddons
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+endif()
+
 find_package(KDecoration3 REQUIRED)
 
 add_subdirectory(src)
